@@ -1,0 +1,183 @@
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700;800;900&family=Inter:wght@300;400;500;600&display=swap");
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+/* rest of your file... */
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --font-display: "Playfair Display", "Times New Roman", serif;
+  --font-sans: "Inter", system-ui, sans-serif;
+}
+
+:root {
+  --radius: 0.5rem;
+  /* Pure black & white industrial palette */
+  --background: oklch(0 0 0);
+  --foreground: oklch(1 0 0);
+  --card: oklch(0.06 0 0);
+  --card-foreground: oklch(1 0 0);
+  --popover: oklch(0.08 0 0);
+  --popover-foreground: oklch(1 0 0);
+  --primary: oklch(1 0 0);
+  --primary-foreground: oklch(0 0 0);
+  --secondary: oklch(0.18 0 0);
+  --secondary-foreground: oklch(1 0 0);
+  --muted: oklch(0.14 0 0);
+  --muted-foreground: oklch(0.7 0 0);
+  --accent: oklch(0.22 0 0);
+  --accent-foreground: oklch(1 0 0);
+  --destructive: oklch(0.6 0.2 25);
+  --destructive-foreground: oklch(1 0 0);
+  --border: oklch(1 0 0 / 0.1);
+  --input: oklch(1 0 0 / 0.12);
+  --ring: oklch(1 0 0 / 0.4);
+
+  /* Border-only glow — subtle white/grey, slightly stronger and darker */
+  --glow-border: 0 0 0 1px rgba(255,255,255,0.18), 0 0 14px rgba(255,255,255,0.06);
+  --glow-border-strong: 0 0 0 1px rgba(255,255,255,0.5), 0 0 22px rgba(255,255,255,0.18);
+  --gradient-fade-bottom: linear-gradient(180deg, transparent 0%, oklch(0 0 0) 100%);
+  --transition-smooth: 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.dark {
+  --background: oklch(0 0 0);
+  --foreground: oklch(1 0 0);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection {
+    background-color: oklch(1 0 0 / 0.2);
+    color: oklch(1 0 0);
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: oklch(0 0 0); }
+  ::-webkit-scrollbar-thumb { background: oklch(1 0 0 / 0.15); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: oklch(1 0 0 / 0.3); }
+}
+
+@layer utilities {
+  .glow-border {
+    box-shadow: var(--glow-border);
+    transition: box-shadow var(--transition-smooth), transform var(--transition-smooth);
+  }
+  .glow-border:hover {
+    box-shadow: var(--glow-border-strong);
+  }
+  .glow-border-strong {
+    box-shadow: var(--glow-border-strong);
+  }
+  .text-balance { text-wrap: balance; }
+  .text-pretty { text-wrap: pretty; }
+  .font-display { font-family: var(--font-display); }
+
+  .section-pad {
+    padding-top: clamp(4rem, 10vw, 7rem);
+    padding-bottom: clamp(4rem, 10vw, 7rem);
+  }
+
+  @keyframes marquee-rtl {
+    from { transform: translateX(-50%); }
+    to { transform: translateX(0); }
+  }
+  .animate-marquee-rtl {
+    animation: marquee-rtl 50s linear infinite;
+  }
+
+  /* Display heading: premium serif */
+  .h-display {
+    font-family: var(--font-display);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+  }
+  .eyebrow {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+    color: oklch(0.6 0 0);
+    font-family: var(--font-sans);
+    font-weight: 500;
+  }
+}
+
+/* Keep inputs dark even when browser autofills (fixes white background on email/select) */
+input,
+textarea,
+select {
+  background-color: transparent;
+  color: #d1d5db;
+  -webkit-text-fill-color: #d1d5db;
+  caret-color: #d1d5db;
+}
+input:focus,
+textarea:focus,
+select:focus {
+  background-color: transparent;
+  color: #d1d5db;
+  outline: none;
+}
+input:focus,
+textarea:focus,
+select:focus {
+  background-color: transparent;
+  color: #d1d5db;
+  outline: none;
+}
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:focus {
+  -webkit-text-fill-color: #d1d5db !important;
+  -webkit-box-shadow: 0 0 0 1000px #000 inset !important;
+  box-shadow: 0 0 0 1000px #000 inset !important;
+  caret-color: #d1d5db !important;
+  transition: background-color 9999s ease-in-out 0s;
+}
+
